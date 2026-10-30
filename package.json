@@ -1,0 +1,55 @@
+{
+  "name": "dsh-pptx-annotate",
+  "version": "0.1.0",
+  "description": "Annotate a PPTX element by element inside the DSH preview panel, then hand the whole review to the agent in one click",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "pptx",
+    "powerpoint",
+    "annotation",
+    "office"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "smoke": "node tools/smoke.mjs",
+    "shot": "node tools/smoke.mjs --shot docs/preview-wide.png"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HiddenPuppy/dsh-pptx-annotate.git"
+  },
+  "homepage": "https://github.com/HiddenPuppy/dsh-pptx-annotate#readme",
+  "bugs": {
+    "url": "https://github.com/HiddenPuppy/dsh-pptx-annotate/issues"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,6 @@
+# Bundle layer for dsh-pptx-annotate: one plugin row served by both halves.
+# The Host half registers the /api/pptx-annotate routes; the browser half
+# registers the pptx document previewer and its annotation body.
+- insert:
+    - id: pptx-annotate
+      name: dsh-pptx-annotate
