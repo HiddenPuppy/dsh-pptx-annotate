@@ -83,12 +83,15 @@ Agent 猜你指的是哪个元素 → 改错 → 再来一轮。
 插件是标准的 DSH bundle（一条 Loader 行同时带来 Host 与 Client 两面）。
 
 ```bash
-# 1) 让 profile 能解析到这个包
+# 方式一：dsh 自带的插件安装命令（会写入 profile 的 bundles）
+dsh plugin --profile web add /absolute/path/to/dsh-pptx-annotate
+
+# 方式二：手工 link（桌面版的 desktop profile 只能这样装：
+#        公开 CLI 会拒绝管理 desktop profile）
 cd ~/.dsh/profiles/desktop
 ln -sfn /absolute/path/to/dsh-pptx-annotate node_modules/dsh-pptx-annotate
-
-# 2) 把包名加进 profile 的 dsh.profile.bundles（末尾 = 最高优先级层）
-#    并加一条依赖："dsh-pptx-annotate": "link:/absolute/path/to/dsh-pptx-annotate"
+# 再把 "dsh-pptx-annotate": "link:/absolute/path/to/dsh-pptx-annotate"
+# 加进 dependencies，并把包名加进 dsh.profile.bundles
 ```
 
 改完 `package.json` 需要重启应用；之后只改 `lib/client.js` 会热替换，改 `lib/index.js` 需要触发一次 profile 重组
