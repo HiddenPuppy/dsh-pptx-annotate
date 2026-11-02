@@ -8,6 +8,8 @@
 
 ![预览与批注](docs/preview-wide.png)
 
+> 想先看设计拆解与功能对比：[简介](docs/intro.zh.md)
+
 ---
 
 ## 它解决什么问题
