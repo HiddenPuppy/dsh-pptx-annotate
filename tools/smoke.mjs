@@ -180,6 +180,12 @@ const HARNESS = String.raw`
   const slides = document.querySelectorAll('.pa-slide');
   check('renders every slide', slides.length === DECK.slides.length, slides.length + '/' + DECK.slides.length);
 
+  if (location.search.includes('bare')) {
+    // Screenshot mode: no interaction, clean state.
+    document.getElementById('result').textContent = JSON.stringify(results);
+    return;
+  }
+
   const first = slides[0];
   const box = first.getBoundingClientRect();
   check('slide keeps the deck aspect ratio', Math.abs(box.width / box.height - DECK.width / DECK.height) < 0.05,
@@ -313,7 +319,7 @@ if (!existsSync(chrome)) throw new Error('Chrome not found; cannot run the smoke
  * @param {string} [shotPath] capture a screenshot instead of dumping the DOM
  * @returns {Promise<any[]>} assertions
  */
-async function drive(width, shotPath) {
+async function drive(width, shotPath, query = 'clean=1') {
   const profile = join(dir, `chrome-${width}-${shotPath ? 'shot' : 'dom'}`);
   const args = [
     '--headless=new', '--no-sandbox', '--disable-gpu',
@@ -324,7 +330,7 @@ async function drive(width, shotPath) {
   ];
   if (shotPath) args.push(`--screenshot=${shotPath}`);
   else args.push('--dump-dom');
-  args.push(`${origin}/harness.html${shotPath ? '?clean=1' : ''}`);
+  args.push(`${origin}/harness.html${shotPath ? '?' + query : ''}`);
 
   const { stdout } = await run(chrome, args, { maxBuffer: 64 * 1024 * 1024 })
     .catch((error) => ({ stdout: error.stdout ?? '' }));
@@ -351,7 +357,8 @@ for (const width of [900, 380]) {
 
 const shotAt = process.argv.indexOf('--shot');
 if (shotAt > 0 && process.argv[shotAt + 1]) {
-  await drive(760, process.argv[shotAt + 1]);
+  await drive(760, process.argv[shotAt + 1], 'bare=1');
+  await drive(760, process.argv[shotAt + 1].replace('.png', '-annotated.png'), 'clean=1');
   console.log(`\nscreenshot → ${process.argv[shotAt + 1]}`);
 }
 

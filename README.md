@@ -3,10 +3,23 @@
 > **在预览面板里逐元素批注 PPT，一键把整轮修改意见交给 Agent。**
 > Annotate PPTX element by element inside the DSH preview panel, then hand the whole review to the agent in one click.
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![DSH plugin](https://img.shields.io/badge/DSH-plugin-4A6CF7)](https://github.com/topics/dsh-plugin)
+[![DSH version](https://img.shields.io/badge/DSH-0.2.1--rc.x-lightgrey)](https://github.com/deepseek-ai/deepseek-harness)
+[![stars](https://img.shields.io/github/stars/HiddenPuppy/dsh-pptx-annotate)](https://github.com/HiddenPuppy/dsh-pptx-annotate/stargazers)
+
+The built-in preview lets you *look* at a `.pptx`. This plugin lets you **talk to it**: click any
+element on any slide, write what should change, and hand the whole review to the DSH agent in one
+click. The agent gets `page 2 · #3 · "the heading" · what to change` instead of a paragraph of
+prose describing where to look. Registered at `priority: 'extension'`, so it takes over `.pptx`
+by default and the built-in PDF preview stays one dropdown away.
+
 一个 DSH（DeepSeek Harness）文档预览器插件。它和内置的 Office 预览**并列**注册在同一个位置，
 但把「看 PPT」变成了「改 PPT」：点任意元素写意见 → 一键提交 → Agent 逐条改 → 面板自动刷新。
 
-![预览与批注](docs/preview-wide.png)
+![预览 → 批注](docs/demo.gif)
+
+<sub>点任意元素 → 写意见 → 一键交给 Agent（上方 GIF 为真实界面录制的两帧：无批注 / 已批注）</sub>
 
 > 想先看设计拆解与功能对比：[简介](docs/intro.zh.md)
 
@@ -134,6 +147,12 @@ Host 路由（含鉴权失败路径）、真实 PNG 渲染、组件挂载与点�
 - [ ] 逐条「接受 / 忽略」，把 Agent 的改动做成可审阅的 diff
 - [ ] 支持 `.pptx` 之外：`.docx` 段落级批注
 - [ ] 用会话 turn 状态替代文件轮询，进度提示更准
+
+## 相关
+
+- DSH 插件话题：[github.com/topics/dsh-plugin](https://github.com/topics/dsh-plugin)
+- 社区讨论帖：[deepseek-ai/deepseek-harness#11564](https://github.com/deepseek-ai/deepseek-harness/discussions/11564)
+- 同类项目集合：[awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)
 
 ## License
 
